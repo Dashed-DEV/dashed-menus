@@ -2,24 +2,28 @@
 
 namespace Qubiqx\QcommerceMenus;
 
+use Filament\PluginServiceProvider;
+use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
+use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource;
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Qubiqx\QcommerceMenus\Commands\QcommerceMenusCommand;
 
-class QcommerceMenusServiceProvider extends PackageServiceProvider
+class QcommerceMenusServiceProvider extends PluginServiceProvider
 {
+    public static string $name = 'qcommerce-menus';
+
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         $package
-            ->name('qcommerce-menus')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_qcommerce-menus_table')
-            ->hasCommand(QcommerceMenusCommand::class);
+            ->name('qcommerce-menus');
+    }
+
+    protected function getResources(): array
+    {
+        return array_merge(parent::getResources(), [
+            MenuResource::class,
+            MenuItemResource::class,
+        ]);
     }
 }
