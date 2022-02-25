@@ -14,7 +14,7 @@ class MigrateMenuItemClassesToNew extends Migration
     public function up()
     {
         foreach (\Qubiqx\QcommerceCore\Models\MenuItem::withTrashed()->get() as $menuItem) {
-            $menuItem->model = str_replace('Qubiqx\Qcommerce\Models\Page', 'Qubiqx\QcommerceCore\Models\Page', $menuItem->model);
+            $menuItem->model = str_replace('Qubiqx\Qcommerce\Models\Page', 'Qubiqx\QcommercePages\Models\Page', $menuItem->model);
             $siteIds = [];
             foreach($menuItem->site_ids as $siteIdKey => $siteId){
                 $siteIds[$siteIdKey] = $siteIdKey;

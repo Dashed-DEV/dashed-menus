@@ -53,7 +53,7 @@
                 "Qubiqx\\QcommerceMenus\\QcommerceMenusServiceProvider"
             ],
             "aliases": {
-                "QcommerceMenus": "Qubiqx\\QcommerceMenus\\Facades\\QcommerceMenus"
+                "Menus": "Qubiqx\\QcommerceCore\\Classes\\Menus"
             }
         }
     },
