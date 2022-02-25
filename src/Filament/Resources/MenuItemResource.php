@@ -3,21 +3,21 @@
 namespace Qubiqx\QcommerceMenus\Filament\Resources;
 
 use Closure;
-use Illuminate\Support\Str;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Filament\Forms\Components\TextInput;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
-use Filament\Forms\Components\MultiSelect;
-use Filament\Resources\Concerns\Translatable;
 use Filament\Forms\Components\BelongsToSelect;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Filament\Forms\Components\MultiSelect;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Str;
+use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
+use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Qubiqx\QcommerceMenus\Models\MenuItem;
 
 class MenuItemResource extends Resource
 {
@@ -54,9 +54,9 @@ class MenuItemResource extends Resource
                     ->label("Kies een " . strtolower($routeModel['name']))
                     ->required()
                     ->options($routeModel['class']::pluck($routeModel['nameField'] ?: 'name', 'id'))
-                    ->hidden(fn($get) => !in_array($get('type'), [$key]))
+                    ->hidden(fn ($get) => ! in_array($get('type'), [$key]))
                     ->afterStateHydrated(function (Select $component, Closure $set, $state) {
-                        $set($component, fn($record) => $record->model_id ?? '');
+                        $set($component, fn ($record) => $record->model_id ?? '');
                     });
         }
 
@@ -80,7 +80,7 @@ class MenuItemResource extends Resource
                 ->label('Actief op sites')
                 ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
                 ->hidden(function () {
-                    return !(Sites::getAmountOfSites() > 1);
+                    return ! (Sites::getAmountOfSites() > 1);
                 })
                 ->required(),
             TextInput::make('order')
@@ -111,7 +111,7 @@ class MenuItemResource extends Resource
                 ->afterStateUpdated(function (Closure $set, $state, $livewire) {
                     $set('slug', Str::slug($state));
                 })
-                ->hidden(fn($get) => !in_array($get('type'), ['normal', 'external_url'])),
+                ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'external_url'])),
         ];
         $schema = array_merge($schema, $routeModelInputs);
 
@@ -129,14 +129,14 @@ class MenuItemResource extends Resource
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                    ->getStateUsing(fn($record) => $record->name())
+                    ->getStateUsing(fn ($record) => $record->name())
                     ->searchable(),
                 TextColumn::make('url')
                     ->label('URL')
-                    ->getStateUsing(fn($record) => str_replace(url('/'), '', $record->getUrl())),
+                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
                 TextColumn::make('site_ids')
                     ->label('Sites')
-                    ->getStateUsing(fn($record) => implode(' | ', $record->site_ids)),
+                    ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids)),
             ])
             ->filters([
                 //
