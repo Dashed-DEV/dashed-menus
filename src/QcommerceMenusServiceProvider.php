@@ -2,9 +2,9 @@
 
 namespace Qubiqx\QcommerceMenus;
 
+use Qubiqx\QcommerceMenus\Commands\QcommerceMenusCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Qubiqx\QcommerceMenus\Commands\QcommerceMenusCommand;
 
 class QcommerceMenusServiceProvider extends PackageServiceProvider
 {
