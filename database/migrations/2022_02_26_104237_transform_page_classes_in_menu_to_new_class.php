@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MigrateMenuItemClassesToNew extends Migration
+class TransformPageClassesInMenuToNewClass extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class MigrateMenuItemClassesToNew extends Migration
      */
     public function up()
     {
+
         foreach (\Qubiqx\QcommerceMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
-            $menuItem->model = str_replace('Qubiqx\Qcommerce\Models\Page', 'Qubiqx\QcommercePages\Models\Page', $menuItem->model);
-            $siteIds = [];
-            foreach($menuItem->site_ids as $siteIdKey => $siteId){
-                $siteIds[$siteIdKey] = $siteIdKey;
-            }
-            $menuItem->site_ids = $siteIds;
+            $menuItem->model = str_replace('Qubiqx\QcommerceCore\Models\Page', 'Qubiqx\QcommercePages\Models\Page', $menuItem->model);
             $menuItem->save();
         }
     }
@@ -31,8 +27,5 @@ class MigrateMenuItemClassesToNew extends Migration
      */
     public function down()
     {
-        Schema::table('new', function (Blueprint $table) {
-            //
-        });
     }
 }
