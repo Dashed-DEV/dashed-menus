@@ -4,6 +4,7 @@ namespace Qubiqx\QcommerceMenus\Classes;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Qubiqx\QcommerceCore\Classes\Helper;
 use Qubiqx\QcommerceMenus\Models\Menu;
 
 class Menus
