@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class MigrateMenuItemClassesToNew extends Migration
 {
@@ -16,7 +16,7 @@ class MigrateMenuItemClassesToNew extends Migration
         foreach (\Qubiqx\QcommerceMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
             $menuItem->model = str_replace('Qubiqx\Qcommerce\Models\Page', 'Qubiqx\QcommercePages\Models\Page', $menuItem->model);
             $siteIds = [];
-            foreach($menuItem->site_ids as $siteIdKey => $siteId){
+            foreach ($menuItem->site_ids as $siteIdKey => $siteId) {
                 $siteIds[$siteIdKey] = $siteIdKey;
             }
             $menuItem->site_ids = $siteIds;
