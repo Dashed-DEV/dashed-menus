@@ -62,6 +62,10 @@ class MenuItem extends Model
                 $child->delete();
             }
         });
+
+        static::deleted(function ($menuItem) {
+            Cache::tags(['menu-items'])->flush();
+        });
     }
 
     public function scopeThisSite($query)
