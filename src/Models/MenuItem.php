@@ -2,6 +2,7 @@
 
 namespace Qubiqx\QcommerceMenus\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
@@ -66,6 +67,11 @@ class MenuItem extends Model
         static::deleted(function ($menuItem) {
             Cache::tags(['menu-items'])->flush();
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
     }
 
     public function scopeThisSite($query)
