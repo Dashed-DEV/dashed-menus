@@ -3,11 +3,11 @@
 namespace Qubiqx\QcommerceMenus;
 
 use Filament\PluginServiceProvider;
-use Qubiqx\QcommerceMenus\Models\Menu;
-use Spatie\LaravelPackageTools\Package;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
+use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource;
+use Qubiqx\QcommerceMenus\Models\Menu;
+use Qubiqx\QcommerceMenus\Models\MenuItem;
+use Spatie\LaravelPackageTools\Package;
 
 class QcommerceMenusServiceProvider extends PluginServiceProvider
 {

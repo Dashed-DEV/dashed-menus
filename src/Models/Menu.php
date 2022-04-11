@@ -2,11 +2,15 @@
 
 namespace Qubiqx\QcommerceMenus\Models;
 
+<<<<<<< HEAD
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\Cache;
+=======
+>>>>>>> 55b9e8ea68306edfa7255b2336fdb37aeeab3606
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Menu extends Model
 {
