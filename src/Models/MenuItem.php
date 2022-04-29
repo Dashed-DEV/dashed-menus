@@ -26,6 +26,7 @@ class MenuItem extends Model
         'parent_menu_item_id',
         'site_ids',
         'name',
+        'blocks',
         'url',
         'type',
         'model',
@@ -44,8 +45,13 @@ class MenuItem extends Model
         'deleted_at',
     ];
 
+    protected $appends = [
+        'contentBlocks',
+    ];
+
     protected $casts = [
         'site_ids' => 'array',
+        'blocks' => 'array',
     ];
 
     protected static function booted()
@@ -210,5 +216,10 @@ class MenuItem extends Model
     public function parentMenuItem()
     {
         return $this->belongsTo(self::class, 'parent_menu_item_id');
+    }
+
+    public function getContentBlocksAttribute()
+    {
+        return $this->blocks[App::getLocale()] ?? [];
     }
 }
