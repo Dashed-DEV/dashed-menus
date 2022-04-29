@@ -29,6 +29,7 @@ class Menus
                                 'name' => $child2MenuItem->name(),
                                 'url' => $child2MenuItem->getUrl(),
                                 'type' => $child2MenuItem->type,
+                                'contentBlocks' => $child2MenuItem->contentBlocks,
                                 'hasChilds' => false,
                                 'childs' => [],
                             ];
@@ -39,6 +40,7 @@ class Menus
                             'name' => $childMenuItem->name(),
                             'url' => $childMenuItem->getUrl(),
                             'type' => $childMenuItem->type,
+                            'contentBlocks' => $childMenuItem->contentBlocks,
                             'hasChilds' => count($childs2) ? true : false,
                             'childs' => $childs2,
                         ];
@@ -49,6 +51,7 @@ class Menus
                         'name' => $menuItem->name(),
                         'url' => $menuItem->getUrl(),
                         'type' => $menuItem->type,
+                        'contentBlocks' => $menuItem->contentBlocks,
                         'hasChilds' => count($childs) ? true : false,
                         'childs' => $childs,
                     ];
