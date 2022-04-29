@@ -52,6 +52,7 @@ class MenuResource extends Resource
                             ])
                             ->unique('qcommerce__menus', 'name', fn ($record) => $record)
                             ->reactive()
+                            ->lazy()
                             ->afterStateUpdated(function (Closure $set, $state, $livewire) {
                                 $set('name', Str::slug($state));
                             }),
