@@ -17,7 +17,7 @@ class EditMenuItem extends EditRecord
 
     public function afterFill(): void
     {
-        foreach ($this->data['blocks'][$this->activeFormLocale] as $key => $value) {
+        foreach ($this->data['blocks'][$this->activeFormLocale] ?? [] as $key => $value) {
             if ($value) {
                 if (Str::contains($value, 'qcommerce/')) {
                     $this->data['blocks_' . $key] = [Str::uuid()->toString() => $value];
