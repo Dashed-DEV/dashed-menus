@@ -16,9 +16,8 @@ class Menu extends Model
     protected static $logFillable = true;
 
     protected $table = 'qcommerce__menus';
-    protected $fillable = [
-        'name',
-    ];
+
+    protected $guarded = [];
 
     protected $dates = [
         'created_at',
@@ -41,17 +40,13 @@ class Menu extends Model
         });
     }
 
+    protected $casts = [
+        'items' => 'array'
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
-    }
-
-    public function scopeSearch($query)
-    {
-        if (request()->get('search')) {
-            $search = strtolower(request()->get('search'));
-            $query->where('name', 'LIKE', "%$search%");
-        }
     }
 
     public function menuItems()
