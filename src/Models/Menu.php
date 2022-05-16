@@ -41,7 +41,7 @@ class Menu extends Model
     }
 
     protected $casts = [
-        'items' => 'array'
+        'items' => 'array',
     ];
 
     public function getActivitylogOptions(): LogOptions
