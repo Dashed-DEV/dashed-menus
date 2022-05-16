@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^8.1",
-        "ryangjchandler/filament-navigation": "^0.2.3",
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
@@ -53,7 +52,8 @@
                 "Qubiqx\\QcommerceMenus\\QcommerceMenusServiceProvider"
             ],
             "aliases": {
-                "Menus": "Qubiqx\\QcommerceMenus\\Classes\\Menus"
+                "Menus": "Qubiqx\\QcommerceMenus\\Classes\\Menus",
+                "QcommerceMenus": "Qubiqx\\QcommerceMenus\\Facades\\QcommerceMenus"
             }
         }
     },
