@@ -3,22 +3,22 @@
 namespace Qubiqx\QcommerceMenus\Filament\Resources;
 
 use Closure;
-use Filament\Forms\Components\Grid;
-use Illuminate\Support\Str;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\MultiSelect;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
-use Filament\Resources\Concerns\Translatable;
 use Filament\Forms\Components\BelongsToSelect;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\MultiSelect;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Str;
+use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
+use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Qubiqx\QcommerceMenus\Models\MenuItem;
 
 class MenuItemResource extends Resource
 {
@@ -126,7 +126,7 @@ class MenuItemResource extends Resource
                     $set('slug', Str::slug($state));
                 })
                 ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'external_url'])),
-                ])
+                ]),
         ];
         $schema = array_merge($schema, $routeModelInputs);
 
