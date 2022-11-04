@@ -3,8 +3,6 @@
 namespace Qubiqx\QcommerceMenus\Filament\Resources;
 
 use Closure;
-<<<<<<< HEAD
-=======
 use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\MultiSelect;
@@ -16,20 +14,9 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
->>>>>>> e982acd24be87454182a117371c0c4e163bffb17
 use Illuminate\Support\Str;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
 use Qubiqx\QcommerceCore\Classes\Sites;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\MultiSelect;
 use Qubiqx\QcommerceMenus\Models\MenuItem;
-use Filament\Resources\Concerns\Translatable;
-use Filament\Forms\Components\BelongsToSelect;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
 
