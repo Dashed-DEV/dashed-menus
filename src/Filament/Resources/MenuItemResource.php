@@ -3,6 +3,20 @@
 namespace Qubiqx\QcommerceMenus\Filament\Resources;
 
 use Closure;
+<<<<<<< HEAD
+=======
+use Filament\Forms\Components\BelongsToSelect;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\MultiSelect;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables\Columns\TextColumn;
+>>>>>>> e982acd24be87454182a117371c0c4e163bffb17
 use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
@@ -62,6 +76,14 @@ class MenuItemResource extends Resource
         }
 
         $schema = [
+            Grid::make([
+                'default' => 1,
+                'sm' => 1,
+                'md' => 1,
+                'lg' => 1,
+                'xl' => 2,
+                '2xl' => 2,
+            ])->schema([
             BelongsToSelect::make('menu_id')
                 ->label('Kies een menu')
                 ->relationship('menu', 'name')
@@ -98,7 +120,11 @@ class MenuItemResource extends Resource
                 ->rules([
                     'max:255',
                 ])
-                ->reactive(),
+                ->reactive()
+                ->columnSpan([
+                    'xl' => 2,
+                    '2xl' => 2,
+                ]),
 //                            ->afterStateUpdated(function (Closure $set, $state, $livewire) {
 //                                $set('name', Str::slug($state));
 //                            }),
@@ -113,6 +139,7 @@ class MenuItemResource extends Resource
                     $set('slug', Str::slug($state));
                 })
                 ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'external_url'])),
+                ]),
         ];
         $schema = array_merge($schema, $routeModelInputs);
 
