@@ -2,8 +2,8 @@
 
 namespace Qubiqx\QcommerceMenus\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Qubiqx\QcommerceMenus\QcommerceMenusServiceProvider;
 
 class TestCase extends Orchestra

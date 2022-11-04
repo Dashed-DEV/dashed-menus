@@ -2,15 +2,15 @@
 
 namespace Qubiqx\QcommerceMenus\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Database\Eloquent\Model;
 use Qubiqx\QcommerceCore\Classes\Sites;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class MenuItem extends Model
 {
