@@ -16,9 +16,9 @@ use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
+use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Qubiqx\QcommerceMenus\Models\MenuItem;
 
 class MenuItemResource extends Resource
 {

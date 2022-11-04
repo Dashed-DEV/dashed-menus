@@ -2,11 +2,11 @@
 
 namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages;
 
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
 use Illuminate\Support\Str;
 use Qubiqx\QcommerceCore\Classes\Sites;
-use Filament\Resources\Pages\CreateRecord;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
-use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
 
 class CreateMenuItem extends CreateRecord
 {
