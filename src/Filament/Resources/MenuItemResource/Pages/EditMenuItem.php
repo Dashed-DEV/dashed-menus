@@ -5,7 +5,6 @@ namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
-use Illuminate\Support\Str;
 use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
 
