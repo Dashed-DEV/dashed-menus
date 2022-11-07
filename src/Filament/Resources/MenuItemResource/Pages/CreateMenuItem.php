@@ -29,16 +29,6 @@ class CreateMenuItem extends CreateRecord
             }
         }
 
-        $blocks = [];
-        $data['blocks'] = [];
-        foreach ($data as $key => $item) {
-            if (Str::startsWith($key, 'blocks_')) {
-                $blocks[str_replace('blocks_', '', $key)] = $item;
-                unset($data[$key]);
-            }
-        }
-        $data['blocks'][$this->activeFormLocale] = $blocks;
-
         $data['site_ids'] = $data['site_ids'] ?? [Sites::getFirstSite()['id']];
 
         return $data;

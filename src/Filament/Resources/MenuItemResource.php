@@ -16,6 +16,7 @@ use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 use Qubiqx\QcommerceCore\Classes\Sites;
+use Qubiqx\QcommerceCore\Filament\Concerns\HasCustomBlocksTab;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
 use Qubiqx\QcommerceMenus\Models\MenuItem;
@@ -23,6 +24,7 @@ use Qubiqx\QcommerceMenus\Models\MenuItem;
 class MenuItemResource extends Resource
 {
     use Translatable;
+    use HasCustomBlocksTab;
 
     protected static ?string $model = MenuItem::class;
     protected static ?string $recordTitleAttribute = 'name';
@@ -56,9 +58,9 @@ class MenuItemResource extends Resource
                     ->required()
                     ->options($routeModel['class']::pluck($routeModel['nameField'] ?: 'name', 'id'))
                     ->searchable()
-                    ->hidden(fn ($get) => ! in_array($get('type'), [$key]))
+                    ->hidden(fn($get) => !in_array($get('type'), [$key]))
                     ->afterStateHydrated(function (Select $component, Closure $set, $state) {
-                        $set($component, fn ($record) => $record->model_id ?? '');
+                        $set($component, fn($record) => $record->model_id ?? '');
                     });
         }
 
@@ -70,70 +72,62 @@ class MenuItemResource extends Resource
                 'lg' => 1,
                 'xl' => 2,
                 '2xl' => 2,
-            ])->schema([
-            BelongsToSelect::make('menu_id')
-                ->label('Kies een menu')
-                ->relationship('menu', 'name')
-                ->required(),
-            BelongsToSelect::make('parent_menu_item_id')
-                ->label('Kies een bovenliggend menu item')
-                ->relationship('parentMenuItem', 'name'),
-            Select::make('type')
-                ->label('Kies een type')
-                ->options(array_merge([
-                    'normal' => 'Normaal',
-                    'external_url' => 'Externe URL',
-                ], $routeModels))
-                ->required()
-                ->reactive(),
-            MultiSelect::make('site_ids')
-                ->label('Actief op sites')
-                ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
-                ->hidden(function () {
-                    return ! (Sites::getAmountOfSites() > 1);
-                })
-                ->required(),
-            TextInput::make('order')
-                ->label('Volgorde')
-                ->required()
-                ->default(1)
-                ->rules([
-                    'numeric',
-                    'max:255',
-                ]),
-            TextInput::make('name')
-                ->label('Name')
-                ->required()
-                ->rules([
-                    'max:255',
-                ])
-                ->reactive()
-                ->columnSpan([
-                    'xl' => 2,
-                    '2xl' => 2,
-                ]),
-//                            ->afterStateUpdated(function (Closure $set, $state, $livewire) {
-//                                $set('name', Str::slug($state));
-//                            }),
-            TextInput::make('url')
-                ->label('URL')
-                ->required()
-                ->rules([
-                    'max:255',
-                ])
-                ->reactive()
-                ->afterStateUpdated(function (Closure $set, $state, $livewire) {
-                    $set('slug', Str::slug($state));
-                })
-                ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'external_url'])),
-                ]),
+            ])->schema(array_merge([
+                BelongsToSelect::make('menu_id')
+                    ->label('Kies een menu')
+                    ->relationship('menu', 'name')
+                    ->required(),
+                BelongsToSelect::make('parent_menu_item_id')
+                    ->label('Kies een bovenliggend menu item')
+                    ->relationship('parentMenuItem', 'name'),
+                Select::make('type')
+                    ->label('Kies een type')
+                    ->options(array_merge([
+                        'normal' => 'Normaal',
+                        'externalUrl' => 'Externe URL',
+                    ], $routeModels))
+                    ->required()
+                    ->reactive(),
+                MultiSelect::make('site_ids')
+                    ->label('Actief op sites')
+                    ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
+                    ->hidden(function () {
+                        return !(Sites::getAmountOfSites() > 1);
+                    })
+                    ->required(),
+                TextInput::make('order')
+                    ->label('Volgorde')
+                    ->required()
+                    ->default(1)
+                    ->rules([
+                        'numeric',
+                        'max:255',
+                    ]),
+                TextInput::make('name')
+                    ->label('Name')
+                    ->required()
+                    ->rules([
+                        'max:255',
+                    ])
+                    ->reactive(),
+                TextInput::make('url')
+                    ->label('URL')
+                    ->required()
+                    ->rules([
+                        'max:255',
+                    ])
+                    ->reactive()
+                    ->afterStateUpdated(function (Closure $set, $state, $livewire) {
+                        $set('slug', Str::slug($state));
+                    })
+                    ->hidden(fn($get) => !in_array($get('type'), ['normal', 'external_url'])),
+            ], $routeModelInputs)),
         ];
-        $schema = array_merge($schema, $routeModelInputs);
 
         return $form
             ->schema([
                 Section::make('Menu')
-                    ->schema(array_merge($schema, cms()->builder('menuItemBlocks'))),
+                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('menuItemBlocks')))),
             ]);
     }
 
@@ -144,14 +138,14 @@ class MenuItemResource extends Resource
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                    ->getStateUsing(fn ($record) => $record->name())
+                    ->getStateUsing(fn($record) => $record->name())
                     ->searchable(),
                 TextColumn::make('url')
                     ->label('URL')
-                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
+                    ->getStateUsing(fn($record) => str_replace(url('/'), '', $record->getUrl())),
                 TextColumn::make('site_ids')
                     ->label('Sites')
-                    ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids)),
+                    ->getStateUsing(fn($record) => implode(' | ', $record->site_ids)),
             ])
             ->filters([
                 //

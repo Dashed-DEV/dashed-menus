@@ -3,11 +3,14 @@
 namespace Qubiqx\QcommerceMenus\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Qubiqx\QcommerceCore\Classes\Sites;
+use Qubiqx\QcommerceCore\Models\Concerns\HasCustomBlocks;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Translatable\HasTranslations;
@@ -17,22 +20,11 @@ class MenuItem extends Model
     use SoftDeletes;
     use HasTranslations;
     use LogsActivity;
+    use HasCustomBlocks;
 
     protected static $logFillable = true;
 
     protected $table = 'qcommerce__menu_items';
-    protected $fillable = [
-        'menu_id',
-        'parent_menu_item_id',
-        'site_ids',
-        'name',
-        'blocks',
-        'url',
-        'type',
-        'model',
-        'model_id',
-        'order',
-    ];
 
     public $translatable = [
         'name',
@@ -85,16 +77,15 @@ class MenuItem extends Model
         $query->whereJsonContains('site_ids', Sites::getActive());
     }
 
-    public function scopeSearch($query)
+    public function scopeSearch($query, ?string $search = null)
     {
-        if (request()->get('search')) {
-            $search = strtolower(request()->get('search'));
+        if (request()->get('search') ?: $search) {
+            $search = strtolower(request()->get('search') ?: $search);
             $query->where('site_ids', 'LIKE', "%$search%")
                 ->orWhere('name', 'LIKE', "%$search%")
                 ->orWhere('url', 'LIKE', "%$search%")
                 ->orWhere('type', 'LIKE', "%$search%")
-                ->orWhere('model', 'LIKE', "%$search%")
-                ->orWhere('model_id', 'LIKE', "%$search%");
+                ->orWhere('model', 'LIKE', "%$search%");
         }
     }
 
@@ -112,7 +103,7 @@ class MenuItem extends Model
         $menuItem = $this;
         while ($menuItem->parent_menu_item_id) {
             $menuItem = self::find($menuItem->parent_menu_item_id);
-            if (! $menuItem) {
+            if (!$menuItem) {
                 return;
             }
         }
@@ -132,7 +123,7 @@ class MenuItem extends Model
         $menuItem = $this;
         while ($menuItem->parent_menu_item_id) {
             $menuItem = self::find($menuItem->parent_menu_item_id);
-            if (! $menuItem) {
+            if (!$menuItem) {
                 return;
             }
         }
@@ -168,7 +159,7 @@ class MenuItem extends Model
     public function getUrl()
     {
         return Cache::tags(['menus', 'menu-items', 'products', 'product-categories', 'pages', 'articles', "menuitem-$this->id"])->remember("menuitem-url-$this->id-" . App::getLocale(), 60 * 60 * 24, function () {
-            if (! $this->type || $this->type == 'normal' || $this->type == 'external_url') {
+            if (!$this->type || $this->type == 'normal' || $this->type == 'externalUrl') {
                 if ($this->url && (parse_url($this->url)['host'] ?? request()->getHttpHost()) != request()->getHttpHost()) {
                     return $this->url;
                 } else {
@@ -187,17 +178,17 @@ class MenuItem extends Model
         });
     }
 
-    public function name()
+    public function name(): string
     {
-        return Cache::tags(['menus', 'menu-items', 'products', 'product-categories', 'pages', 'articles', "menuitem-$this->id"])->remember("menuitem-name-$this->id-" . App::getLocale(), 60 * 60 * 24, function () {
-            if (! $this->type || $this->type == 'normal' || $this->type == 'external_url') {
+        return Cache::tags(['menus', 'menu-items', "menuitem-$this->id"])->remember("menuitem-name-$this->id-" . App::getLocale(), 60 * 60 * 24, function () {
+            if (!$this->type || $this->type == 'normal' || $this->type == 'externalUrl') {
                 return $this->name;
             } else {
                 $modelResult = $this->model::find($this->model_id);
                 $replacementName = '';
                 if ($modelResult) {
                     $replacementName = $modelResult->name;
-                    if (! $replacementName) {
+                    if (!$replacementName) {
                         $replacementName = $modelResult->title;
                     }
                 }
@@ -207,23 +198,18 @@ class MenuItem extends Model
         });
     }
 
-    public function menu()
+    public function menu(): BelongsTo
     {
         return $this->belongsTo(Menu::class);
     }
 
-    public function childMenuItems()
+    public function childMenuItems(): HasMany
     {
         return $this->hasMany(self::class, 'parent_menu_item_id')->orderBy('order', 'ASC');
     }
 
-    public function parentMenuItem()
+    public function parentMenuItem(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_menu_item_id');
-    }
-
-    public function getContentBlocksAttribute()
-    {
-        return $this->blocks[App::getLocale()] ?? [];
     }
 }
