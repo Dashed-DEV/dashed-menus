@@ -42,6 +42,9 @@ class EditMenuItem extends EditRecord
                 ->label('Terug naar menu')
                 ->url(route('filament.resources.menus.edit', [$this->record->menu]))
                 ->icon('heroicon-o-arrow-left'),
+            Action::make('Dupliceer menu item')
+                ->action('duplicate')
+                ->color('warning'),
         ]);
     }
 
@@ -52,5 +55,13 @@ class EditMenuItem extends EditRecord
         $breadcrumbs = array_merge([route('filament.resources.menus.edit', [$this->record->menu->id]) => "Menu {$this->record->menu->name}"], $breadcrumbs);
 
         return $breadcrumbs;
+    }
+
+    public function duplicate()
+    {
+        $newMenuItem = $this->record->replicate();
+        $newMenuItem->save();
+
+        return redirect(route('filament.resources.menu-items.edit', [$newMenuItem]));
     }
 }
