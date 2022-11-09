@@ -64,7 +64,7 @@ class EditMenuItem extends EditRecord
 
         if ($this->record->customBlocks) {
             $newCustomBlock = $this->record->customBlocks->replicate();
-            $newCustomBlock->model_id = $newMenuItem->id;
+            $newCustomBlock->blockable_id = $newMenuItem->id;
             $newCustomBlock->save();
         }
 
