@@ -38,13 +38,13 @@ class EditMenuItem extends EditRecord
     {
         return array_merge(parent::getActions(), [
             $this->getActiveFormLocaleSelectAction(),
+            Action::make('Dupliceer menu item')
+                ->action('duplicate')
+                ->color('warning'),
             Action::make('return')
                 ->label('Terug naar menu')
                 ->url(route('filament.resources.menus.edit', [$this->record->menu]))
                 ->icon('heroicon-o-arrow-left'),
-            Action::make('Dupliceer menu item')
-                ->action('duplicate')
-                ->color('warning'),
         ]);
     }
 
