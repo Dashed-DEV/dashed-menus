@@ -62,7 +62,7 @@ class EditMenuItem extends EditRecord
         $newMenuItem = $this->record->replicate();
         $newMenuItem->save();
 
-        foreach($this->record->customBlocks as $customBlock) {
+        foreach ($this->record->customBlocks as $customBlock) {
             $newCustomBlock = $customBlock->replicate();
             $newCustomBlock->model_id = $newMenuItem->id;
             $newCustomBlock->save();
