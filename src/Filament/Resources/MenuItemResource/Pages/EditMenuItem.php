@@ -62,6 +62,10 @@ class EditMenuItem extends EditRecord
         $newMenuItem = $this->record->replicate();
         $newMenuItem->save();
 
+        $this->record->load('customBlocks');
+
+        $newMenuItem->customBlocks()->sync($this->record->customBlocks);
+
         return redirect(route('filament.resources.menu-items.edit', [$newMenuItem]));
     }
 }
