@@ -114,7 +114,7 @@ class MenuItemResource extends Resource
                     ->label('URL')
                     ->required()
                     ->rules([
-                        'max:255',
+                        'max:1000',
                     ])
                     ->reactive()
                     ->afterStateUpdated(function (Closure $set, $state, $livewire) {
