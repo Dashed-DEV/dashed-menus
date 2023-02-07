@@ -101,7 +101,7 @@ class MenuItemResource extends Resource
                     ->default(1)
                     ->rules([
                         'numeric',
-                        'max:255',
+                        'max:10000',
                     ]),
                 TextInput::make('name')
                     ->label('Name')
