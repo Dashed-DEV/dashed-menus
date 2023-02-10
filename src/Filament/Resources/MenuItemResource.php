@@ -117,9 +117,6 @@ class MenuItemResource extends Resource
                         'max:1000',
                     ])
                     ->reactive()
-                    ->afterStateUpdated(function (Closure $set, $state, $livewire) {
-                        $set('slug', Str::slug($state));
-                    })
                     ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
             ], $routeModelInputs)),
         ];
