@@ -12,7 +12,7 @@ class Menus
     public static function getMenuItems($menuName)
     {
         //Todo: change caching tags to dynamic load models that are used to create routes
-        $menuItems = Cache::tags(['menus', 'menu-items'])->rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
+        $menuItems = Cache::tags(['menu-items'])->rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
             $menu = Menu::where('name', $menuName)->first();
 
             if ($menu) {
