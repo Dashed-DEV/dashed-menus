@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Qubiqx\QcommerceCore\Classes\Sites;
 use Qubiqx\QcommerceCore\Models\Concerns\HasCustomBlocks;
+use Qubiqx\QcommerceMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Translatable\HasTranslations;
@@ -49,11 +50,11 @@ class MenuItem extends Model
     protected static function booted()
     {
         static::created(function ($menuItem) {
-            Cache::tags(['menu-items'])->flush();
+            Menus::clearCache();
         });
 
         static::updated(function ($menuItem) {
-            Cache::tags(['menu-items'])->flush();
+            Menus::clearCache();
         });
 
         static::deleting(function ($menuItem) {
@@ -63,7 +64,7 @@ class MenuItem extends Model
         });
 
         static::deleted(function ($menuItem) {
-            Cache::tags(['menu-items'])->flush();
+            Menus::clearCache();
         });
     }
 

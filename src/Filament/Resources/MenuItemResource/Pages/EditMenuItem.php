@@ -6,6 +6,7 @@ use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 use Qubiqx\QcommerceCore\Classes\Sites;
+use Qubiqx\QcommerceMenus\Classes\Menus;
 use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
 
 class EditMenuItem extends EditRecord
@@ -69,5 +70,10 @@ class EditMenuItem extends EditRecord
         }
 
         return redirect(route('filament.resources.menu-items.edit', [$newMenuItem]));
+    }
+
+    protected function afterSave()
+    {
+        Menus::clearCache();
     }
 }

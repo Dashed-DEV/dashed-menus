@@ -5,6 +5,7 @@ namespace Qubiqx\QcommerceMenus\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
+use Qubiqx\QcommerceMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -28,11 +29,11 @@ class Menu extends Model
     protected static function booted()
     {
         static::created(function ($menu) {
-            Cache::tags(['menus'])->flush();
+            Menus::clearCache();
         });
 
         static::updated(function ($menu) {
-            Cache::tags(['menus'])->flush();
+            Menus::clearCache();
         });
 
         static::deleting(function ($menu) {

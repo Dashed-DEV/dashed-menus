@@ -5,14 +5,23 @@ namespace Qubiqx\QcommerceMenus\Classes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Qubiqx\QcommerceCore\Classes\Helper;
+use Qubiqx\QcommerceCore\Classes\Locales;
 use Qubiqx\QcommerceMenus\Models\Menu;
 
 class Menus
 {
+    public static function clearCache()
+    {
+        foreach (Menu::get() as $menu) {
+            foreach (Locales::getLocales() as $locale) {
+                Cache::forget('menu-' . $menu->name . '-' . $locale['id']);
+            }
+        }
+    }
+
     public static function getMenuItems($menuName)
     {
-        //Todo: change caching tags to dynamic load models that are used to create routes
-        $menuItems = Cache::tags(['menu-items'])->rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
+        $menuItems = Cache::rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
             $menu = Menu::where('name', $menuName)->first();
 
             if ($menu) {
