@@ -4,7 +4,6 @@ namespace Qubiqx\QcommerceMenus\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Cache;
 use Qubiqx\QcommerceMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
