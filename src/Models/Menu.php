@@ -18,8 +18,6 @@ class Menu extends Model
 
     protected $table = 'qcommerce__menus';
 
-    protected $guarded = [];
-
     protected $dates = [
         'created_at',
         'updated_at',
