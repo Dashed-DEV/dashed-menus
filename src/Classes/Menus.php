@@ -15,13 +15,14 @@ class Menus
         foreach (Menu::get() as $menu) {
             foreach (Locales::getLocales() as $locale) {
                 Cache::forget('menu-' . $menu->name . '-' . $locale['id']);
+                Cache::tags('menu')->flush();
             }
         }
     }
 
     public static function getMenuItems($menuName)
     {
-        $menuItems = Cache::rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
+        $menuItems = Cache::tags('menu')->rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
             $menu = Menu::where('name', $menuName)->first();
 
             if ($menu) {
