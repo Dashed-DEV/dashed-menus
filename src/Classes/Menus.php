@@ -3,6 +3,7 @@
 namespace Qubiqx\QcommerceMenus\Classes;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Qubiqx\QcommerceCore\Classes\Helper;
 use Qubiqx\QcommerceCore\Classes\Locales;
@@ -18,6 +19,7 @@ class Menus
                 Cache::tags('menu')->flush();
             }
         }
+        Artisan::call('cache:clear');
     }
 
     public static function getMenuItems($menuName)
