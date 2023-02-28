@@ -9,6 +9,7 @@ use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\LinkAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
@@ -50,7 +51,7 @@ class MenuResource extends Resource
                             ->rules([
                                 'max:255',
                             ])
-                            ->unique('qcommerce__menus', 'name', fn ($record) => $record)
+                            ->unique('qcommerce__menus', 'name', fn($record) => $record)
                             ->reactive()
                             ->lazy()
                             ->afterStateUpdated(function (Closure $set, $state, $livewire) {
@@ -67,17 +68,17 @@ class MenuResource extends Resource
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                ->searchable(),
+                    ->searchable(),
                 TextColumn::make('amount_of_menu_items')
                     ->label('Aantal menu items')
-                    ->getStateUsing(fn ($record) => $record->menuItems->count()),
+                    ->getStateUsing(fn($record) => $record->menuItems->count()),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                LinkAction::make('Bewerken')
-                    ->url(fn (Menu $record): string => route('filament.resources.menus.edit', [$record])),
+                Action::make('Bewerken')
+                    ->url(fn(Menu $record): string => route('filament.resources.menus.edit', [$record])),
             ]);
     }
 

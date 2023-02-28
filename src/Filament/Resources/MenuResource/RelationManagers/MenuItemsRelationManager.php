@@ -5,9 +5,12 @@ namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\RelationManagers
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\HasManyRelationManager;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ButtonAction;
 use Filament\Tables\Actions\LinkAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
+use Qubiqx\QcommerceMenus\Models\Menu;
 use Qubiqx\QcommerceMenus\Models\MenuItem;
 
 class MenuItemsRelationManager extends HasManyRelationManager
@@ -46,15 +49,16 @@ class MenuItemsRelationManager extends HasManyRelationManager
                 //
             ])
             ->headerActions([
-                ButtonAction::make('Aanmaken')
-                    ->url(fn ($record) => route('filament.resources.menu-items.create') . '?menuItemId=' . $record),
+                Action::make('Aanmaken')
+                    ->button()
+                    ->url(fn ($livewire) => route('filament.resources.menu-items.create') . '?menuItemId=' . $livewire->ownerRecord->id),
             ]);
     }
 
     protected function getTableActions(): array
     {
         return array_merge(parent::getTableActions(), [
-            LinkAction::make('edit')
+            Action::make('edit')
                 ->label('Bewerken')
                 ->url(fn (MenuItem $record) => route('filament.resources.menu-items.edit', [$record])),
         ]);

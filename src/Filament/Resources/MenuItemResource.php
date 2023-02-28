@@ -46,6 +46,8 @@ class MenuItemResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $menuItemId = request()->get('menuItemId', null);
+
         $routeModels = [];
         $routeModelInputs = [];
         foreach (cms()->builder('routeModels') as $key => $routeModel) {
@@ -57,9 +59,9 @@ class MenuItemResource extends Resource
                     ->required()
                     ->options($routeModel['class']::pluck($routeModel['nameField'] ?: 'name', 'id'))
                     ->searchable()
-                    ->hidden(fn ($get) => ! in_array($get('type'), [$key]))
+                    ->hidden(fn($get) => !in_array($get('type'), [$key]))
                     ->afterStateHydrated(function (Select $component, Closure $set, $state) {
-                        $set($component, fn ($record) => $record->model_id ?? '');
+                        $set($component, fn($record) => $record->model_id ?? '');
                     });
         }
 
@@ -75,6 +77,7 @@ class MenuItemResource extends Resource
                 BelongsToSelect::make('menu_id')
                     ->label('Kies een menu')
                     ->relationship('menu', 'name')
+                    ->default($menuItemId)
                     ->required(),
                 BelongsToSelect::make('parent_menu_item_id')
                     ->label('Kies een bovenliggend menu item')
@@ -91,7 +94,7 @@ class MenuItemResource extends Resource
                     ->label('Actief op sites')
                     ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
                     ->hidden(function () {
-                        return ! (Sites::getAmountOfSites() > 1);
+                        return !(Sites::getAmountOfSites() > 1);
                     })
                     ->required(),
                 TextInput::make('order')
@@ -116,7 +119,7 @@ class MenuItemResource extends Resource
                         'max:1000',
                     ])
                     ->reactive()
-                    ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
+                    ->hidden(fn($get) => !in_array($get('type'), ['normal', 'externalUrl'])),
             ], $routeModelInputs)),
         ];
 
@@ -134,14 +137,14 @@ class MenuItemResource extends Resource
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                    ->getStateUsing(fn ($record) => $record->name())
+                    ->getStateUsing(fn($record) => $record->name())
                     ->searchable(),
                 TextColumn::make('url')
                     ->label('URL')
-                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
+                    ->getStateUsing(fn($record) => str_replace(url('/'), '', $record->getUrl())),
                 TextColumn::make('site_ids')
                     ->label('Sites')
-                    ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids)),
+                    ->getStateUsing(fn($record) => implode(' | ', $record->site_ids)),
             ])
             ->filters([
                 //
