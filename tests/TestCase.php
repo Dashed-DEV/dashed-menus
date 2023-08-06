@@ -19,7 +19,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            QcommerceMenusServiceProvider::class,
+            DashedMenusServiceProvider::class,
         ];
     }
 

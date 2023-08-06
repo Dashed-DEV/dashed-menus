@@ -52,8 +52,8 @@ php artisan vendor:publish --tag="dashed-menus-views"
 ## Usage
 
 ```php
-$qcommerceMenus = new Dashed\DashedMenus();
-echo $qcommerceMenus->echoPhrase('Hello, Dashed!');
+$dashedMenus = new Dashed\DashedMenus();
+echo $dashedMenus->echoPhrase('Hello, Dashed!');
 ```
 
 ## Testing
