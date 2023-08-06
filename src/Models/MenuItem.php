@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Models;
+namespace Dashed\DashedMenus\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceCore\Models\Concerns\HasCustomBlocks;
-use Qubiqx\QcommerceMenus\Classes\Menus;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedCore\Models\Concerns\HasCustomBlocks;
+use Dashed\DashedMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Translatable\HasTranslations;
@@ -25,7 +25,7 @@ class MenuItem extends Model
 
     protected static $logFillable = true;
 
-    protected $table = 'qcommerce__menu_items';
+    protected $table = 'dashed__menu_items';
 
     public $translatable = [
         'name',

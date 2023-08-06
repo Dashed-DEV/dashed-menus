@@ -13,8 +13,8 @@ class MigrateMenuItemClassesToNew extends Migration
      */
     public function up()
     {
-        foreach (\Qubiqx\QcommerceMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
-            $menuItem->model = str_replace('Qubiqx\Qcommerce\Models\Page', 'Qubiqx\QcommercePages\Models\Page', $menuItem->model);
+        foreach (\Dashed\DashedMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
+            $menuItem->model = str_replace('Dashed\Dashed\Models\Page', 'Dashed\DashedPages\Models\Page', $menuItem->model);
             $siteIds = [];
             foreach ($menuItem->site_ids as $siteIdKey => $siteId) {
                 $siteIds[$siteIdKey] = $siteIdKey;

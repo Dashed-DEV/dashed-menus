@@ -1,13 +1,13 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages;
+namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceMenus\Classes\Menus;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedMenus\Classes\Menus;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 
 class EditMenuItem extends EditRecord
 {

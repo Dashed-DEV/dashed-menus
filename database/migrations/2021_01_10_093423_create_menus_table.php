@@ -13,7 +13,7 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('qcommerce__menus', function (Blueprint $table) {
+        Schema::create('dashed__menus', function (Blueprint $table) {
             $table->id();
 
             $table->string('name')->unique();
@@ -22,11 +22,11 @@ class CreateMenusTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('qcommerce__menu_items', function (Blueprint $table) {
+        Schema::create('dashed__menu_items', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('menu_id')->nullable()->constrained('qcommerce__menus');
-            $table->foreignId('parent_menu_item_id')->nullable()->constrained('qcommerce__menu_items');
+            $table->foreignId('menu_id')->nullable()->constrained('dashed__menus');
+            $table->foreignId('parent_menu_item_id')->nullable()->constrained('dashed__menu_items');
             $table->json('site_ids');
             $table->json('name');
             $table->json('url')->nullable();

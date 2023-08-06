@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        foreach (\Qubiqx\QcommerceMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
+        foreach (\Dashed\DashedMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
             $menuItem->type = str($menuItem->type)->camel();
             $menuItem->save();
         }

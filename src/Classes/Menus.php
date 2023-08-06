@@ -1,13 +1,13 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Classes;
+namespace Dashed\DashedMenus\Classes;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
-use Qubiqx\QcommerceCore\Classes\Helper;
-use Qubiqx\QcommerceCore\Classes\Locales;
-use Qubiqx\QcommerceMenus\Models\Menu;
+use Dashed\DashedCore\Classes\Helper;
+use Dashed\DashedCore\Classes\Locales;
+use Dashed\DashedMenus\Models\Menu;
 
 class Menus
 {

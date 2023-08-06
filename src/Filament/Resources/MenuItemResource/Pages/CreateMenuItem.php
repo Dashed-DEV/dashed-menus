@@ -1,11 +1,11 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages;
+namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 
 class CreateMenuItem extends CreateRecord
 {

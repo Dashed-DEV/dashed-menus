@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Filament\Resources;
+namespace Dashed\DashedMenus\Filament\Resources;
 
 use Closure;
 use Filament\Forms\Components\Section;
@@ -12,11 +12,11 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\Pages\EditMenu;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\Pages\ListMenu;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
-use Qubiqx\QcommerceMenus\Models\Menu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
+use Dashed\DashedMenus\Models\Menu;
 
 class MenuResource extends Resource
 {
@@ -50,7 +50,7 @@ class MenuResource extends Resource
                             ->rules([
                                 'max:255',
                             ])
-                            ->unique('qcommerce__menus', 'name', fn ($record) => $record)
+                            ->unique('dashed__menus', 'name', fn ($record) => $record)
                             ->reactive()
                             ->lazy()
                             ->afterStateUpdated(function (Closure $set, $state, $livewire) {

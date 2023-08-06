@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('qcommerce__menu_items', function (Blueprint $table) {
+        Schema::table('dashed__menu_items', function (Blueprint $table) {
             $table->text('url')
                 ->nullable()
                 ->change();

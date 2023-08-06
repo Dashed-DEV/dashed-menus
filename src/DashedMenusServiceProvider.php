@@ -1,17 +1,17 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus;
+namespace Dashed\DashedMenus;
 
 use Filament\PluginServiceProvider;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource;
-use Qubiqx\QcommerceMenus\Models\Menu;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
+use Dashed\DashedMenus\Models\Menu;
+use Dashed\DashedMenus\Models\MenuItem;
 use Spatie\LaravelPackageTools\Package;
 
-class QcommerceMenusServiceProvider extends PluginServiceProvider
+class DashedMenusServiceProvider extends PluginServiceProvider
 {
-    public static string $name = 'qcommerce-menus';
+    public static string $name = 'dashed-menus';
 
     public function configurePackage(Package $package): void
     {
@@ -21,7 +21,7 @@ class QcommerceMenusServiceProvider extends PluginServiceProvider
         cms()->model('MenuItem', MenuItem::class);
 
         $package
-            ->name('qcommerce-menus');
+            ->name('dashed-menus');
     }
 
     protected function getResources(): array

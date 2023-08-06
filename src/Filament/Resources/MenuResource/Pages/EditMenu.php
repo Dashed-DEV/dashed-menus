@@ -1,10 +1,10 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\Pages;
+namespace Dashed\DashedMenus\Filament\Resources\MenuResource\Pages;
 
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuResource;
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
 
 class EditMenu extends EditRecord
 {

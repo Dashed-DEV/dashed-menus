@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Database\Factories;
+namespace Dashed\DashedMenus\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

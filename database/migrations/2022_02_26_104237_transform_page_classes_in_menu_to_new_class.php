@@ -11,8 +11,8 @@ class TransformPageClassesInMenuToNewClass extends Migration
      */
     public function up()
     {
-        foreach (\Qubiqx\QcommerceMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
-            $menuItem->model = str_replace('Qubiqx\QcommerceCore\Models\Page', 'Qubiqx\QcommercePages\Models\Page', $menuItem->model);
+        foreach (\Dashed\DashedMenus\Models\MenuItem::withTrashed()->get() as $menuItem) {
+            $menuItem->model = str_replace('Dashed\DashedCore\Models\Page', 'Dashed\DashedPages\Models\Page', $menuItem->model);
             $menuItem->save();
         }
     }

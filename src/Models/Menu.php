@@ -1,10 +1,10 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Models;
+namespace Dashed\DashedMenus\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Qubiqx\QcommerceMenus\Classes\Menus;
+use Dashed\DashedMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -15,7 +15,7 @@ class Menu extends Model
 
     protected static $logFillable = true;
 
-    protected $table = 'qcommerce__menus';
+    protected $table = 'dashed__menus';
 
     protected $dates = [
         'created_at',

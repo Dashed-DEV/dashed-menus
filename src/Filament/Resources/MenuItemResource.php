@@ -1,6 +1,6 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Filament\Resources;
+namespace Dashed\DashedMenus\Filament\Resources;
 
 use Closure;
 use Filament\Forms\Components\BelongsToSelect;
@@ -14,11 +14,11 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
-use Qubiqx\QcommerceCore\Classes\Sites;
-use Qubiqx\QcommerceCore\Filament\Concerns\HasCustomBlocksTab;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
-use Qubiqx\QcommerceMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedCore\Filament\Concerns\HasCustomBlocksTab;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Dashed\DashedMenus\Models\MenuItem;
 
 class MenuItemResource extends Resource
 {

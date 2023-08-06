@@ -1,13 +1,13 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Filament\Resources\MenuResource\RelationManagers;
+namespace Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers;
 
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\HasManyRelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Qubiqx\QcommerceMenus\Models\MenuItem;
+use Dashed\DashedMenus\Models\MenuItem;
 
 class MenuItemsRelationManager extends HasManyRelationManager
 {

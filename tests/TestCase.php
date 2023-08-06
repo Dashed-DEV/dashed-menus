@@ -1,10 +1,10 @@
 <?php
 
-namespace Qubiqx\QcommerceMenus\Tests;
+namespace Dashed\DashedMenus\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Qubiqx\QcommerceMenus\QcommerceMenusServiceProvider;
+use Dashed\DashedMenus\DashedMenusServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Qubiqx\\QcommerceMenus\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Dashed\\DashedMenus\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -29,7 +29,7 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         /*
-        $migration = include __DIR__.'/../database/migrations/create_qcommerce-menus_table.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_dashed-menus_table.php.stub';
         $migration->up();
         */
     }

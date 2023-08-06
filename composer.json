@@ -1,17 +1,17 @@
 {
-    "name": "qubiqx/qcommerce-menus",
-    "description": "This is my package qcommerce-menus",
+    "name": "dashed/dashed-menus",
+    "description": "This is my package dashed-menus",
     "keywords": [
-        "Qubiqx",
+        "Dashed",
         "laravel",
-        "qcommerce-menus"
+        "dashed-menus"
     ],
-    "homepage": "https://github.com/qubiqx/qcommerce-menus",
+    "homepage": "https://github.com/Dashed-DEV/dashed-menus",
     "license": "MIT",
     "authors": [
         {
             "name": "Robin van Maasakker",
-            "email": "robin@qubiqx.com",
+            "email": "robin@dashed.nl",
             "role": "Developer"
         }
     ],
@@ -29,13 +29,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Qubiqx\\QcommerceMenus\\": "src",
-            "Qubiqx\\QcommerceMenus\\Database\\Factories\\": "database/factories"
+            "Dashed\\DashedMenus\\": "src",
+            "Dashed\\DashedMenus\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Qubiqx\\QcommerceMenus\\Tests\\": "tests"
+            "Dashed\\DashedMenus\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -52,10 +52,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Qubiqx\\QcommerceMenus\\QcommerceMenusServiceProvider"
+                "Dashed\\DashedMenus\\DashedMenusServiceProvider"
             ],
             "aliases": {
-                "Menus": "Qubiqx\\QcommerceMenus\\Classes\\Menus"
+                "Menus": "Dashed\\DashedMenus\\Classes\\Menus"
             }
         }
     },
