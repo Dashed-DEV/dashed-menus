@@ -2,6 +2,9 @@
 
 namespace Dashed\DashedMenus\Models;
 
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedCore\Models\Concerns\HasCustomBlocks;
+use Dashed\DashedMenus\Classes\Menus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,9 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedCore\Models\Concerns\HasCustomBlocks;
-use Dashed\DashedMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Translatable\HasTranslations;

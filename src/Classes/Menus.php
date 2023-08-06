@@ -2,12 +2,12 @@
 
 namespace Dashed\DashedMenus\Classes;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Dashed\DashedCore\Classes\Helper;
 use Dashed\DashedCore\Classes\Locales;
 use Dashed\DashedMenus\Models\Menu;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 
 class Menus
 {

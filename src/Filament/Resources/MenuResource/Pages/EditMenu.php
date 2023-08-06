@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\Pages;
 
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Str;
-use Dashed\DashedMenus\Filament\Resources\MenuResource;
 
 class EditMenu extends EditRecord
 {

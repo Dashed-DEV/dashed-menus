@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedMenus\Models;
 
+use Dashed\DashedMenus\Classes\Menus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Dashed\DashedMenus\Classes\Menus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 

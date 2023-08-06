@@ -2,12 +2,12 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers;
 
+use Dashed\DashedMenus\Models\MenuItem;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\HasManyRelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Dashed\DashedMenus\Models\MenuItem;
 
 class MenuItemsRelationManager extends HasManyRelationManager
 {

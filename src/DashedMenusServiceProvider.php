@@ -2,11 +2,11 @@
 
 namespace Dashed\DashedMenus;
 
-use Filament\PluginServiceProvider;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Dashed\DashedMenus\Filament\Resources\MenuResource;
 use Dashed\DashedMenus\Models\Menu;
 use Dashed\DashedMenus\Models\MenuItem;
+use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 
 class DashedMenusServiceProvider extends PluginServiceProvider

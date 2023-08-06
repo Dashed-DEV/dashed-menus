@@ -3,6 +3,11 @@
 namespace Dashed\DashedMenus\Filament\Resources;
 
 use Closure;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
+use Dashed\DashedMenus\Models\Menu;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Concerns\Translatable;
@@ -12,11 +17,6 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
-use Dashed\DashedMenus\Models\Menu;
 
 class MenuResource extends Resource
 {
