@@ -2,11 +2,11 @@
 
 namespace Dashed\DashedMenus\Models;
 
+use Spatie\Activitylog\LogOptions;
 use Dashed\DashedMenus\Classes\Menus;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
@@ -16,12 +16,6 @@ class Menu extends Model
     protected static $logFillable = true;
 
     protected $table = 'dashed__menus';
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
 
     protected static function booted()
     {

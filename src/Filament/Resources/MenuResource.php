@@ -2,21 +2,24 @@
 
 namespace Dashed\DashedMenus\Filament\Resources;
 
-use Closure;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
 use Dashed\DashedMenus\Models\Menu;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Concerns\Translatable;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Support\Str;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
 
 class MenuResource extends Resource
 {
@@ -25,7 +28,7 @@ class MenuResource extends Resource
     protected static ?string $model = Menu::class;
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationIcon = 'heroicon-o-menu';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-3';
     protected static ?string $navigationGroup = 'Content';
     protected static ?string $navigationLabel = 'Menu\'s';
     protected static ?string $label = 'Menu';
@@ -47,13 +50,11 @@ class MenuResource extends Resource
                         TextInput::make('name')
                             ->label('Name')
                             ->required()
-                            ->rules([
-                                'max:255',
-                            ])
+                            ->maxLength(255)
                             ->unique('dashed__menus', 'name', fn ($record) => $record)
                             ->reactive()
                             ->lazy()
-                            ->afterStateUpdated(function (Closure $set, $state, $livewire) {
+                            ->afterStateUpdated(function (Set $set, $state, $livewire) {
                                 $set('name', Str::slug($state));
                             }),
                     ]),
@@ -76,8 +77,14 @@ class MenuResource extends Resource
                 //
             ])
             ->actions([
-                Action::make('Bewerken')
-                    ->url(fn (Menu $record): string => route('filament.resources.menus.edit', [$record])),
+                EditAction::make()
+                    ->button(),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ]);
     }
 

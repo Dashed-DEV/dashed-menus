@@ -2,23 +2,26 @@
 
 namespace Dashed\DashedMenus\Filament\Resources;
 
-use Closure;
-use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedCore\Filament\Concerns\HasCustomBlocksTab;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
-use Dashed\DashedMenus\Models\MenuItem;
-use Filament\Forms\Components\BelongsToSelect;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\MultiSelect;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Concerns\Translatable;
-use Filament\Resources\Form;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Dashed\DashedCore\Classes\Sites;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Dashed\DashedMenus\Models\MenuItem;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Dashed\DashedCore\Classes\QueryHelpers\SearchQuery;
+use Dashed\DashedCore\Filament\Concerns\HasCustomBlocksTab;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\ListMenuItems;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
 
 class MenuItemResource extends Resource
 {
@@ -59,29 +62,22 @@ class MenuItemResource extends Resource
                     ->required()
                     ->options($routeModel['class']::pluck($routeModel['nameField'] ?: 'name', 'id'))
                     ->searchable()
-                    ->hidden(fn ($get) => ! in_array($get('type'), [$key]))
-                    ->afterStateHydrated(function (Select $component, Closure $set, $state) {
+                    ->hidden(fn ($get) => !in_array($get('type'), [$key]))
+                    ->afterStateHydrated(function (Select $component, Set $set, $state) {
                         $set($component, fn ($record) => $record->model_id ?? '');
                     });
         }
 
-        $schema = [
-            Grid::make([
-                'default' => 1,
-                'sm' => 1,
-                'md' => 1,
-                'lg' => 1,
-                'xl' => 2,
-                '2xl' => 2,
-            ])->schema(array_merge([
-                BelongsToSelect::make('menu_id')
+        $schema = array_merge([
+                Select::make('menu_id')
                     ->label('Kies een menu')
                     ->relationship('menu', 'name')
                     ->default($menuItemId)
                     ->required(),
-                BelongsToSelect::make('parent_menu_item_id')
+                Select::make('parent_menu_item_id')
                     ->label('Kies een bovenliggend menu item')
-                    ->relationship('parentMenuItem', 'name'),
+                    ->relationship('parentMenuItem', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name()),
                 Select::make('type')
                     ->label('Kies een type')
                     ->options(array_merge([
@@ -90,43 +86,38 @@ class MenuItemResource extends Resource
                     ], $routeModels))
                     ->required()
                     ->reactive(),
-                MultiSelect::make('site_ids')
+                Select::make('site_ids')
+                    ->multiple()
                     ->label('Actief op sites')
                     ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
                     ->hidden(function () {
-                        return ! (Sites::getAmountOfSites() > 1);
+                        return !(Sites::getAmountOfSites() > 1);
                     })
                     ->required(),
                 TextInput::make('order')
                     ->label('Volgorde')
                     ->required()
                     ->default(1)
-                    ->rules([
-                        'numeric',
-                        'max:10000',
-                    ]),
+                    ->numeric()
+                    ->maxValue(10000),
                 TextInput::make('name')
                     ->label('Name')
                     ->required()
-                    ->rules([
-                        'max:255',
-                    ])
+                    ->maxLength(255)
                     ->reactive(),
                 TextInput::make('url')
                     ->label('URL')
                     ->required()
-                    ->rules([
-                        'max:1000',
-                    ])
+                    ->maxLength(1000)
                     ->reactive()
-                    ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
-            ], $routeModelInputs)),
-        ];
+                    ->hidden(fn ($get) => !in_array($get('type'), ['normal', 'externalUrl'])),
+            ], $routeModelInputs);
 
         return $form
             ->schema([
                 Section::make('Menu')
-                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('menuItemBlocks')))),
+                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('menuItemBlocks'))))
+                ->columns(2),
             ]);
     }
 
@@ -138,7 +129,7 @@ class MenuItemResource extends Resource
                     ->label('Naam')
                     ->sortable()
                     ->getStateUsing(fn ($record) => $record->name())
-                    ->searchable(),
+                    ->searchable(query: SearchQuery::make()),
                 TextColumn::make('url')
                     ->label('URL')
                     ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
@@ -146,8 +137,15 @@ class MenuItemResource extends Resource
                     ->label('Sites')
                     ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids)),
             ])
-            ->filters([
-                //
+            ->actions([
+                EditAction::make()
+                    ->button(),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
@@ -160,7 +158,7 @@ class MenuItemResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => CreateMenuItem::route('/'),
+            'index' => ListMenuItems::route('/'),
             'create' => CreateMenuItem::route('/create'),
             'edit' => EditMenuItem::route('/{record}/edit'),
         ];

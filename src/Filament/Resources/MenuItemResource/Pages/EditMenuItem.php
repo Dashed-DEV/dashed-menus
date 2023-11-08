@@ -2,11 +2,13 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Dashed\DashedCore\Classes\Sites;
+use Filament\Actions\LocaleSwitcher;
 use Dashed\DashedMenus\Classes\Menus;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
-use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditMenuItem extends EditRecord
@@ -38,22 +40,23 @@ class EditMenuItem extends EditRecord
     protected function getActions(): array
     {
         return array_merge(parent::getActions(), [
-            $this->getActiveFormLocaleSelectAction(),
+            LocaleSwitcher::make(),
             Action::make('Dupliceer menu item')
                 ->action('duplicate')
                 ->color('warning'),
+            DeleteAction::make(),
             Action::make('return')
                 ->label('Terug naar menu')
-                ->url(route('filament.resources.menus.edit', [$this->record->menu]))
+                ->url(route('filament.dashed.resources.menus.edit', [$this->record->menu]))
                 ->icon('heroicon-o-arrow-left'),
         ]);
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         $breadcrumbs = parent::getBreadcrumbs();
         array_shift($breadcrumbs);
-        $breadcrumbs = array_merge([route('filament.resources.menus.edit', [$this->record->menu->id]) => "Menu {$this->record->menu->name}"], $breadcrumbs);
+        $breadcrumbs = array_merge([route('filament.dashed.resources.menus.edit', [$this->record->menu->id]) => "Menu {$this->record->menu->name}"], $breadcrumbs);
 
         return $breadcrumbs;
     }
@@ -69,7 +72,7 @@ class EditMenuItem extends EditRecord
             $newCustomBlock->save();
         }
 
-        return redirect(route('filament.resources.menu-items.edit', [$newMenuItem]));
+        return redirect(route('filament.dashed.resources.menu-items.edit', [$newMenuItem]));
     }
 
     protected function afterSave()

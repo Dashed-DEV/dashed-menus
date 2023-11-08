@@ -2,20 +2,28 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers;
 
-use Dashed\DashedMenus\Models\MenuItem;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\HasManyRelationManager;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
+use Dashed\DashedMenus\Models\MenuItem;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\LocaleSwitcher;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Dashed\DashedCore\Classes\QueryHelpers\SearchQuery;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
 
-class MenuItemsRelationManager extends HasManyRelationManager
+class MenuItemsRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'menuItems';
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -23,7 +31,7 @@ class MenuItemsRelationManager extends HasManyRelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -31,11 +39,10 @@ class MenuItemsRelationManager extends HasManyRelationManager
                     ->label('Naam')
                     ->sortable()
                     ->getStateUsing(fn ($record) => $record->name())
-                    ->searchable(),
+                    ->searchable(query: SearchQuery::make()),
                 TextColumn::make('url')
                     ->label('URL')
-                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl()))
-                    ->searchable(),
+                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
                 TextColumn::make('site_ids')
                     ->label('Sites')
                     ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids))
@@ -44,19 +51,25 @@ class MenuItemsRelationManager extends HasManyRelationManager
             ->filters([
                 //
             ])
-            ->headerActions([
-                Action::make('Aanmaken')
+            ->actions([
+                Action::make('edit')
+                    ->label('Bewerken')
+                    ->icon('heroicon-o-pencil-square')
                     ->button()
-                    ->url(fn ($livewire) => route('filament.resources.menu-items.create') . '?menuItemId=' . $livewire->ownerRecord->id),
+                    ->url(fn (MenuItem $record) => route('filament.dashed.resources.menu-items.edit', [$record])),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ])
+            ->headerActions([
+                Action::make('create')
+                    ->label('Menu item aanmaken')
+                    ->button()
+                    ->url(fn () => route('filament.dashed.resources.menu-items.create')),
+                LocaleSwitcher::make(),
             ]);
-    }
-
-    protected function getTableActions(): array
-    {
-        return array_merge(parent::getTableActions(), [
-            Action::make('edit')
-                ->label('Bewerken')
-                ->url(fn (MenuItem $record) => route('filament.resources.menu-items.edit', [$record])),
-        ]);
     }
 }

@@ -2,14 +2,12 @@
 
 namespace Dashed\DashedMenus;
 
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
-use Dashed\DashedMenus\Filament\Resources\MenuResource;
 use Dashed\DashedMenus\Models\Menu;
 use Dashed\DashedMenus\Models\MenuItem;
-use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class DashedMenusServiceProvider extends PluginServiceProvider
+class DashedMenusServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'dashed-menus';
 
@@ -22,13 +20,5 @@ class DashedMenusServiceProvider extends PluginServiceProvider
 
         $package
             ->name('dashed-menus');
-    }
-
-    protected function getResources(): array
-    {
-        return array_merge(parent::getResources(), [
-            MenuResource::class,
-            MenuItemResource::class,
-        ]);
     }
 }
