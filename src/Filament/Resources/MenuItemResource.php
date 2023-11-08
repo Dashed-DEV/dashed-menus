@@ -2,26 +2,26 @@
 
 namespace Dashed\DashedMenus\Filament\Resources;
 
-use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Dashed\DashedCore\Classes\Sites;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Section;
-use Dashed\DashedMenus\Models\MenuItem;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Resources\Concerns\Translatable;
-use Filament\Tables\Actions\DeleteBulkAction;
 use Dashed\DashedCore\Classes\QueryHelpers\SearchQuery;
+use Dashed\DashedCore\Classes\Sites;
 use Dashed\DashedCore\Filament\Concerns\HasCustomBlocksTab;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\ListMenuItems;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
+use Dashed\DashedMenus\Models\MenuItem;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class MenuItemResource extends Resource
 {
@@ -62,7 +62,7 @@ class MenuItemResource extends Resource
                     ->required()
                     ->options($routeModel['class']::pluck($routeModel['nameField'] ?: 'name', 'id'))
                     ->searchable()
-                    ->hidden(fn ($get) => !in_array($get('type'), [$key]))
+                    ->hidden(fn ($get) => ! in_array($get('type'), [$key]))
                     ->afterStateHydrated(function (Select $component, Set $set, $state) {
                         $set($component, fn ($record) => $record->model_id ?? '');
                     });
@@ -91,7 +91,7 @@ class MenuItemResource extends Resource
                     ->label('Actief op sites')
                     ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
                     ->hidden(function () {
-                        return !(Sites::getAmountOfSites() > 1);
+                        return ! (Sites::getAmountOfSites() > 1);
                     })
                     ->required(),
                 TextInput::make('order')
@@ -110,7 +110,7 @@ class MenuItemResource extends Resource
                     ->required()
                     ->maxLength(1000)
                     ->reactive()
-                    ->hidden(fn ($get) => !in_array($get('type'), ['normal', 'externalUrl'])),
+                    ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
             ], $routeModelInputs);
 
         return $form

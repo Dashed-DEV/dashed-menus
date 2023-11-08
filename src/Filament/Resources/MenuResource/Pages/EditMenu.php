@@ -2,10 +2,10 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\Pages;
 
-use Illuminate\Support\Str;
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
-use Dashed\DashedMenus\Filament\Resources\MenuResource;
+use Illuminate\Support\Str;
 
 class EditMenu extends EditRecord
 {
