@@ -2,26 +2,26 @@
 
 namespace Dashed\DashedMenus\Filament\Resources;
 
-use Dashed\DashedCore\Classes\QueryHelpers\SearchQuery;
-use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedCore\Filament\Concerns\HasCustomBlocksTab;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\ListMenuItems;
-use Dashed\DashedMenus\Models\MenuItem;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Forms\Set;
-use Filament\Resources\Concerns\Translatable;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
+use Dashed\DashedCore\Classes\Sites;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
+use Dashed\DashedMenus\Models\MenuItem;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Dashed\DashedCore\Classes\QueryHelpers\SearchQuery;
+use Dashed\DashedCore\Filament\Concerns\HasCustomBlocksTab;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\EditMenuItem;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\ListMenuItems;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages\CreateMenuItem;
 
 class MenuItemResource extends Resource
 {
@@ -116,7 +116,7 @@ class MenuItemResource extends Resource
         return $form
             ->schema([
                 Section::make('Menu')
-                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('menuItemBlocks'))))
+                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('pageBlocks'))))
                 ->columns(2),
             ]);
     }

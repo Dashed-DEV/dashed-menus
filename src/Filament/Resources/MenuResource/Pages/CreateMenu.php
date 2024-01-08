@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\Pages;
 
-use Dashed\DashedMenus\Filament\Resources\MenuResource;
-use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Str;
+use Filament\Resources\Pages\CreateRecord;
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
 
 class CreateMenu extends CreateRecord
 {

@@ -2,10 +2,10 @@
 
 namespace Dashed\DashedMenus;
 
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
-use Dashed\DashedMenus\Filament\Resources\MenuResource;
-use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Contracts\Plugin;
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 
 class DashedMenusPlugin implements Plugin
 {

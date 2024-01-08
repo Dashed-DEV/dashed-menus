@@ -2,13 +2,13 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
-use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedMenus\Classes\Menus;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
+use Dashed\DashedCore\Classes\Sites;
 use Filament\Actions\LocaleSwitcher;
+use Dashed\DashedMenus\Classes\Menus;
 use Filament\Resources\Pages\EditRecord;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditMenuItem extends EditRecord

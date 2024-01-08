@@ -2,20 +2,20 @@
 
 namespace Dashed\DashedMenus\Models;
 
-use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedCore\Models\Concerns\HasCustomBlocks;
-use Dashed\DashedCore\Models\Concerns\HasSearchScope;
-use Dashed\DashedMenus\Classes\Menus;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\App;
+use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedMenus\Classes\Menus;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Dashed\DashedCore\Models\Concerns\HasSearchScope;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Dashed\DashedCore\Models\Concerns\HasCustomBlocks;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class MenuItem extends Model
 {
@@ -34,13 +34,8 @@ class MenuItem extends Model
         'url',
     ];
 
-    protected $appends = [
-        'contentBlocks',
-    ];
-
     protected $casts = [
         'site_ids' => 'array',
-        'blocks' => 'array',
     ];
 
     protected static function booted()
@@ -140,7 +135,7 @@ class MenuItem extends Model
     public function getChilds()
     {
         $childs = [];
-        $childMenuItems = self::where('parent_menu_item_id', $this->id)->orderBy('order', 'DESC')->get();
+        $childMenuItems = self::where('parent_menu_item_id', $this->id)->orderBy('order', 'desc')->get();
         while ($childMenuItems->count()) {
             $childMenuItemIds = [];
             foreach ($childMenuItems as $childMenuItem) {
