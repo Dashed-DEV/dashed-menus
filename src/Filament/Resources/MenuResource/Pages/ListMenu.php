@@ -2,9 +2,9 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\Pages;
 
+use Dashed\DashedMenus\Filament\Resources\MenuResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Dashed\DashedMenus\Filament\Resources\MenuResource;
 
 class ListMenu extends ListRecords
 {

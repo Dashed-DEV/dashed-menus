@@ -3,9 +3,9 @@
 namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
 use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\CreateRecord;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Filament\Resources\Pages\CreateRecord\Concerns\Translatable;
 
 class CreateMenuItem extends CreateRecord
