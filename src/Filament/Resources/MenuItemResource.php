@@ -69,55 +69,55 @@ class MenuItemResource extends Resource
         }
 
         $schema = array_merge([
-                Select::make('menu_id')
-                    ->label('Kies een menu')
-                    ->relationship('menu', 'name')
-                    ->default($menuItemId)
-                    ->required(),
-                Select::make('parent_menu_item_id')
-                    ->label('Kies een bovenliggend menu item')
-                    ->relationship('parentMenuItem', 'name')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name()),
-                Select::make('type')
-                    ->label('Kies een type')
-                    ->options(array_merge([
-                        'normal' => 'Normaal',
-                        'externalUrl' => 'Externe URL',
-                    ], $routeModels))
-                    ->required()
-                    ->reactive(),
-                Select::make('site_ids')
-                    ->multiple()
-                    ->label('Actief op sites')
-                    ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
-                    ->hidden(function () {
-                        return ! (Sites::getAmountOfSites() > 1);
-                    })
-                    ->required(),
-                TextInput::make('order')
-                    ->label('Volgorde')
-                    ->required()
-                    ->default(1)
-                    ->numeric()
-                    ->maxValue(10000),
-                TextInput::make('name')
-                    ->label('Name')
-                    ->required()
-                    ->maxLength(255)
-                    ->reactive(),
-                TextInput::make('url')
-                    ->label('URL')
-                    ->required()
-                    ->maxLength(1000)
-                    ->reactive()
-                    ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
-            ], $routeModelInputs);
+            Select::make('menu_id')
+                ->label('Kies een menu')
+                ->relationship('menu', 'name')
+                ->default($menuItemId)
+                ->required(),
+            Select::make('parent_menu_item_id')
+                ->label('Kies een bovenliggend menu item')
+                ->relationship('parentMenuItem', 'name')
+                ->getOptionLabelFromRecordUsing(fn ($record) => $record->name()),
+            Select::make('type')
+                ->label('Kies een type')
+                ->options(array_merge([
+                    'normal' => 'Normaal',
+                    'externalUrl' => 'Externe URL',
+                ], $routeModels))
+                ->required()
+                ->reactive(),
+            Select::make('site_ids')
+                ->multiple()
+                ->label('Actief op sites')
+                ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
+                ->hidden(function () {
+                    return ! (Sites::getAmountOfSites() > 1);
+                })
+                ->required(),
+            TextInput::make('order')
+                ->label('Volgorde')
+                ->required()
+                ->default(1)
+                ->numeric()
+                ->maxValue(10000),
+            TextInput::make('name')
+                ->label('Name')
+                ->required()
+                ->maxLength(255)
+                ->reactive(),
+            TextInput::make('url')
+                ->label('URL')
+                ->required()
+                ->maxLength(1000)
+                ->reactive()
+                ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
+        ], $routeModelInputs);
 
         return $form
             ->schema([
                 Section::make('Menu')
-                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('pageBlocks'))))
-                ->columns(2),
+                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('menuItemBlocks'))))
+                    ->columns(2),
             ]);
     }
 
