@@ -13,6 +13,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
@@ -73,6 +74,10 @@ class MenuItemResource extends Resource
                 ->label('Kies een menu')
                 ->relationship('menu', 'name')
                 ->default($menuItemId)
+                ->afterStateUpdated(function (Get $get, Set $set) {
+                    $set('order', (MenuItem::where('menu_id', $get('menu_id'))->orderBy('order', 'desc')->first()->order ?? 0) + 1);
+                })
+                ->reactive()
                 ->required(),
             Select::make('parent_menu_item_id')
                 ->label('Kies een bovenliggend menu item')
@@ -99,6 +104,7 @@ class MenuItemResource extends Resource
                 ->required()
                 ->default(1)
                 ->numeric()
+                ->reactive()
                 ->maxValue(10000),
             TextInput::make('name')
                 ->label('Name')

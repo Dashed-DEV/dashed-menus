@@ -51,6 +51,7 @@ class MenuItemsRelationManager extends RelationManager
             ->filters([
                 //
             ])
+            ->reorderable('order')
             ->actions([
                 Action::make('edit')
                     ->label('Bewerken')
