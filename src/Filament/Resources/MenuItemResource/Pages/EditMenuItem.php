@@ -2,12 +2,18 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
+use Dashed\DashedCore\Classes\Locales;
 use Dashed\DashedCore\Classes\Sites;
 use Dashed\DashedMenus\Classes\Menus;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
+use Dashed\DashedTranslations\Classes\AutomatedTranslation;
+use Dashed\DashedTranslations\Jobs\TranslateValueFromModel;
+use Dashed\DashedTranslations\Models\Translation;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\LocaleSwitcher;
+use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 
@@ -44,6 +50,31 @@ class EditMenuItem extends EditRecord
             Action::make('Dupliceer menu item')
                 ->action('duplicate')
                 ->color('warning'),
+            Action::make('translate')
+                ->icon('heroicon-m-language')
+                ->label('Vertaal')
+                ->visible(AutomatedTranslation::automatedTranslationsEnabled())
+                ->form([
+                    Select::make('to_locales')
+                        ->options(Locales::getLocalesArray())
+                        ->preload()
+                        ->searchable()
+                        ->default(collect(Locales::getLocalesArrayWithoutCurrent())->keys()->toArray())
+                        ->required()
+                        ->label('Naar talen')
+                        ->multiple()
+                ])
+                ->action(function (array $data) {
+                    $textToTranslate = $this->record->getTranslation('name', $this->activeLocale);
+                    foreach ($data['to_locales'] as $locale) {
+                        TranslateValueFromModel::dispatch($this->record, 'name', $textToTranslate, $locale, $this->activeLocale);
+                    }
+
+                    Notification::make()
+                        ->title("Menu item wordt vertaald")
+                        ->success()
+                        ->send();
+                }),
             DeleteAction::make(),
             Action::make('return')
                 ->label('Terug naar menu')
