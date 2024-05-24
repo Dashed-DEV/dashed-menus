@@ -8,7 +8,6 @@ use Dashed\DashedMenus\Classes\Menus;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Dashed\DashedTranslations\Classes\AutomatedTranslation;
 use Dashed\DashedTranslations\Jobs\TranslateValueFromModel;
-use Dashed\DashedTranslations\Models\Translation;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\LocaleSwitcher;
@@ -62,7 +61,7 @@ class EditMenuItem extends EditRecord
                         ->default(collect(Locales::getLocalesArrayWithoutCurrent())->keys()->toArray())
                         ->required()
                         ->label('Naar talen')
-                        ->multiple()
+                        ->multiple(),
                 ])
                 ->action(function (array $data) {
                     $textToTranslate = $this->record->getTranslation('name', $this->activeLocale);
