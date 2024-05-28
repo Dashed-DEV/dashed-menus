@@ -15,7 +15,6 @@ use Filament\Actions\LocaleSwitcher;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditMenuItem extends EditRecord
 {
