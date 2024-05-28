@@ -4,6 +4,7 @@ namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
 use Dashed\DashedCore\Classes\Locales;
 use Dashed\DashedCore\Classes\Sites;
+use Dashed\DashedCore\Filament\Concerns\HasEditableCMSActions;
 use Dashed\DashedMenus\Classes\Menus;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Dashed\DashedTranslations\Classes\AutomatedTranslation;
@@ -18,7 +19,7 @@ use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditMenuItem extends EditRecord
 {
-    use Translatable;
+    use HasEditableCMSActions;
 
     protected static string $resource = MenuItemResource::class;
 
