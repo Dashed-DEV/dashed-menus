@@ -2,8 +2,6 @@
 
 namespace Dashed\DashedMenus;
 
-use Dashed\DashedMenus\Models\Menu;
-use Dashed\DashedMenus\Models\MenuItem;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
