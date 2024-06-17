@@ -15,9 +15,6 @@ class DashedMenusServiceProvider extends PackageServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        cms()->model('Menu', Menu::class);
-        cms()->model('MenuItem', MenuItem::class);
-
         $package
             ->name('dashed-menus');
     }
