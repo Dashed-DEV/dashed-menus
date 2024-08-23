@@ -100,10 +100,7 @@ class MenuItemsRelationManager extends RelationManager
                     ])
                     ->action(function (array $data) {
                         foreach ($this->ownerRecord->menuItems as $menuItem) {
-                            $textToTranslate = $menuItem->getTranslation('name', $data['from_locale']);
-                            foreach ($data['to_locales'] as $locale) {
-                                TranslateValueFromModel::dispatch($menuItem, 'name', $textToTranslate, $locale, $data['from_locale']);
-                            }
+                            AutomatedTranslation::translateModel($menuItem, $data['from_locale'], $data['to_locales'], ['name']);
                         }
 
                         Notification::make()

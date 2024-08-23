@@ -64,10 +64,7 @@ class EditMenuItem extends EditRecord
                         ->multiple(),
                 ])
                 ->action(function (array $data) {
-                    $textToTranslate = $this->record->getTranslation('name', $this->activeLocale);
-                    foreach ($data['to_locales'] as $locale) {
-                        TranslateValueFromModel::dispatch($this->record, 'name', $textToTranslate, $locale, $this->activeLocale);
-                    }
+                    AutomatedTranslation::translateModel($this->record, $this->activeLocale, $data['to_locales'], ['name']);
 
                     Notification::make()
                         ->title("Menu item wordt vertaald")
