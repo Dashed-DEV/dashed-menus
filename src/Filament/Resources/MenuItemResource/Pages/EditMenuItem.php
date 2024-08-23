@@ -8,7 +8,6 @@ use Dashed\DashedCore\Filament\Concerns\HasEditableCMSActions;
 use Dashed\DashedMenus\Classes\Menus;
 use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Dashed\DashedTranslations\Classes\AutomatedTranslation;
-use Dashed\DashedTranslations\Jobs\TranslateValueFromModel;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\LocaleSwitcher;
