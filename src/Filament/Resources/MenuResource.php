@@ -2,24 +2,24 @@
 
 namespace Dashed\DashedMenus\Filament\Resources;
 
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
-use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
-use Dashed\DashedMenus\Models\Menu;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Forms\Set;
-use Filament\Resources\Concerns\Translatable;
-use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Dashed\DashedMenus\Models\Menu;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Resources\Concerns\Translatable;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\EditMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\ListMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\Pages\CreateMenu;
+use Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers\MenuItemsRelationManager;
 
 class MenuResource extends Resource
 {

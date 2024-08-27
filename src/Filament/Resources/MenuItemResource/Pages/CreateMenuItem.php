@@ -3,10 +3,10 @@
 namespace Dashed\DashedMenus\Filament\Resources\MenuItemResource\Pages;
 
 use Dashed\DashedCore\Classes\Sites;
-use Dashed\DashedCore\Filament\Concerns\HasCreatableCMSActions;
-use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\CreateRecord;
+use Dashed\DashedMenus\Filament\Resources\MenuItemResource;
+use Dashed\DashedCore\Filament\Concerns\HasCreatableCMSActions;
 
 class CreateMenuItem extends CreateRecord
 {

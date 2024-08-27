@@ -2,21 +2,21 @@
 
 namespace Dashed\DashedMenus\Filament\Resources\MenuResource\RelationManagers;
 
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
+use Filament\Forms\Components\Select;
 use Dashed\DashedCore\Classes\Locales;
 use Dashed\DashedMenus\Models\MenuItem;
-use Dashed\DashedTranslations\Classes\AutomatedTranslation;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Resources\RelationManagers\Concerns\Translatable;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\LocaleSwitcher;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\LocaleSwitcher;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Resources\RelationManagers\RelationManager;
+use Dashed\DashedTranslations\Classes\AutomatedTranslation;
+use Filament\Resources\RelationManagers\Concerns\Translatable;
 
 class MenuItemsRelationManager extends RelationManager
 {
