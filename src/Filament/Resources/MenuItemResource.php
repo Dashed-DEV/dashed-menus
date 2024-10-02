@@ -61,11 +61,28 @@ class MenuItemResource extends Resource
                 Select::make("{$key}_id")
                     ->label("Kies een " . strtolower($routeModel['name']))
                     ->required()
-                    ->options($routeModel['class']::pluck($routeModel['nameField'] ?: 'name', 'id'))
+                    ->options(function () use ($routeModel) {
+                        $options = [];
+                        $results = $routeModel['class']::get();
+
+                        foreach ($results as $result) {
+                            $originalResult = $result;
+                            $name = $result->{$routeModel['nameField'] ?: 'name'};
+
+                            while ($result->parent) {
+                                $result = $result->parent;
+                                $name = $result->{$routeModel['nameField'] ?: 'name'} . ' > ' . $name;
+                            }
+
+                            $options[$originalResult->id] = $name;
+                        }
+
+                        return $options;
+                    })
                     ->searchable()
-                    ->hidden(fn ($get) => ! in_array($get('type'), [$key]))
+                    ->hidden(fn($get) => !in_array($get('type'), [$key]))
                     ->afterStateHydrated(function (Select $component, Set $set, $state) {
-                        $set($component, fn ($record) => $record->model_id ?? '');
+                        $set($component, fn($record) => $record->model_id ?? '');
                     });
         }
 
@@ -82,7 +99,7 @@ class MenuItemResource extends Resource
             Select::make('parent_menu_item_id')
                 ->label('Kies een bovenliggend menu item')
                 ->relationship('parentMenuItem', 'name')
-                ->getOptionLabelFromRecordUsing(fn ($record) => $record->name()),
+                ->getOptionLabelFromRecordUsing(fn($record) => $record->name()),
             Select::make('type')
                 ->label('Kies een type')
                 ->options(array_merge([
@@ -96,7 +113,7 @@ class MenuItemResource extends Resource
                 ->label('Actief op sites')
                 ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
                 ->hidden(function () {
-                    return ! (Sites::getAmountOfSites() > 1);
+                    return !(Sites::getAmountOfSites() > 1);
                 })
                 ->required(),
             TextInput::make('order')
@@ -116,7 +133,7 @@ class MenuItemResource extends Resource
                 ->required()
                 ->maxLength(1000)
                 ->reactive()
-                ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
+                ->hidden(fn($get) => !in_array($get('type'), ['normal', 'externalUrl'])),
         ], $routeModelInputs);
 
         return $form
@@ -134,14 +151,14 @@ class MenuItemResource extends Resource
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                    ->getStateUsing(fn ($record) => $record->name())
+                    ->getStateUsing(fn($record) => $record->name())
                     ->searchable(query: SearchQuery::make()),
                 TextColumn::make('url')
                     ->label('URL')
-                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
+                    ->getStateUsing(fn($record) => str_replace(url('/'), '', $record->getUrl())),
                 TextColumn::make('site_ids')
                     ->label('Sites')
-                    ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids)),
+                    ->getStateUsing(fn($record) => implode(' | ', $record->site_ids)),
             ])
             ->actions([
                 EditAction::make()
