@@ -24,7 +24,7 @@ class Menus
 
     public static function getMenuItems($menuName)
     {
-        $menuItems = Cache::tags('menu')->rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
+        $menuItems = Cache::rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
             $menu = Menu::where('name', $menuName)->first();
 
             if ($menu) {
