@@ -16,7 +16,6 @@ class Menus
         foreach (Menu::get() as $menu) {
             foreach (Locales::getLocales() as $locale) {
                 Cache::forget('menu-' . $menu->name . '-' . $locale['id']);
-                Cache::tags('menu')->flush();
             }
         }
         Artisan::call('cache:clear');
