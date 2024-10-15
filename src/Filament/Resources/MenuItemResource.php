@@ -50,7 +50,7 @@ class MenuItemResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $menuItemId = request()->get('menuItemId', null);
+        $menuItemId = request()->get('menuId', null);
 
         $routeModels = [];
         $routeModelInputs = [];
@@ -66,15 +66,7 @@ class MenuItemResource extends Resource
                         $results = $routeModel['class']::get();
 
                         foreach ($results as $result) {
-                            $originalResult = $result;
-                            $name = $result->{$routeModel['nameField'] ?: 'name'};
-
-                            while ($result->parent) {
-                                $result = $result->parent;
-                                $name = $result->{$routeModel['nameField'] ?: 'name'} . ' > ' . $name;
-                            }
-
-                            $options[$originalResult->id] = $name;
+                            $options[$result->id] = $result->nameWithParents;
                         }
 
                         return $options;
@@ -89,6 +81,8 @@ class MenuItemResource extends Resource
         $schema = array_merge([
             Select::make('menu_id')
                 ->label('Kies een menu')
+                ->searchable()
+                ->preload()
                 ->relationship('menu', 'name')
                 ->default($menuItemId)
                 ->afterStateUpdated(function (Get $get, Set $set) {
@@ -99,9 +93,13 @@ class MenuItemResource extends Resource
             Select::make('parent_menu_item_id')
                 ->label('Kies een bovenliggend menu item')
                 ->relationship('parentMenuItem', 'name')
+                ->searchable()
+                ->preload()
                 ->getOptionLabelFromRecordUsing(fn ($record) => $record->name()),
             Select::make('type')
                 ->label('Kies een type')
+                ->searchable()
+                ->preload()
                 ->options(array_merge([
                     'normal' => 'Normaal',
                     'externalUrl' => 'Externe URL',
@@ -110,6 +108,8 @@ class MenuItemResource extends Resource
                 ->reactive(),
             Select::make('site_ids')
                 ->multiple()
+                ->searchable()
+                ->preload()
                 ->label('Actief op sites')
                 ->options(collect(Sites::getSites())->pluck('name', 'id')->toArray())
                 ->hidden(function () {

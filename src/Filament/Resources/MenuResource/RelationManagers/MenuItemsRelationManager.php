@@ -75,7 +75,7 @@ class MenuItemsRelationManager extends RelationManager
                 Action::make('create')
                     ->label('Menu item aanmaken')
                     ->button()
-                    ->url(fn () => route('filament.dashed.resources.menu-items.create')),
+                    ->url(fn () => route('filament.dashed.resources.menu-items.create') . '?menuId=' . $this->ownerRecord->id),
 //                LocaleSwitcher::make(),
                 Action::make('translate')
                     ->icon('heroicon-m-language')
