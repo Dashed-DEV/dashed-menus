@@ -2,6 +2,7 @@
 
 namespace Dashed\DashedMenus\Filament\Resources;
 
+use Dashed\DashedCore\CMSManager;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
@@ -135,6 +136,8 @@ class MenuItemResource extends Resource
                 ->reactive()
                 ->hidden(fn ($get) => ! in_array($get('type'), ['normal', 'externalUrl'])),
         ], $routeModelInputs);
+
+        cms()->activateBuilderBlockClasses();
 
         return $form
             ->schema([
