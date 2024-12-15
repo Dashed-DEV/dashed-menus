@@ -26,11 +26,12 @@ class Menus
         $menuItems = Cache::rememberForever("menu-$menuName-" . App::getLocale(), function () use ($menuName) {
             $menu = Menu::where('name', $menuName)->first();
 
-            if (!$menu) {
+            if (! $menu) {
                 return [];
             }
 
             $topLevelMenuItems = $menu->parentMenuItems()->with(['childMenuItems'])->thisSite()->get();
+
             return self::processMenuItems($topLevelMenuItems);
         });
 
@@ -54,6 +55,7 @@ class Menus
                 'childs' => $childMenuItems->isNotEmpty() ? self::processMenuItems($childMenuItems) : [],
             ];
         }
+
         return $result;
     }
 
