@@ -56,6 +56,8 @@ class Menus
             ];
         }
 
+        $result = self::setActiveStatus($result);
+
         return $result;
     }
 
