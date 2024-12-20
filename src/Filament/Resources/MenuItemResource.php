@@ -141,7 +141,7 @@ class MenuItemResource extends Resource
         return $form
             ->schema([
                 Section::make('Menu')
-                    ->schema(array_merge($schema, static::customBlocksTab(cms()->builder('menuItemBlocks'))))
+                    ->schema(array_merge($schema, static::customBlocksTab('menuItemBlocks')))
                     ->columns(2),
             ]);
     }
