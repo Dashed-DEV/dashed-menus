@@ -2,7 +2,6 @@
 
 namespace Dashed\DashedMenus;
 
-use Dashed\DashedCore\DashedCorePlugin;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
