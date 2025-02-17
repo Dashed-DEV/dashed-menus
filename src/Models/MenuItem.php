@@ -155,7 +155,7 @@ class MenuItem extends Model
                 if ($this->url && (parse_url($this->url)['host'] ?? request()->getHttpHost()) != request()->getHttpHost()) {
                     return $this->url;
                 } else {
-                    if(str($this->url)->contains(['tel', 'mailto'])){
+                    if (str($this->url)->contains(['tel', 'mailto'])) {
                         return $this->url;
                     }
 
