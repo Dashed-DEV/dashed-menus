@@ -41,7 +41,7 @@ class MenuItemsRelationManager extends RelationManager
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                    ->getStateUsing(fn ($record) => $record->name())
+                    ->getStateUsing(fn ($record) => $record->name(false))
                     ->searchable(),
                 TextColumn::make('parentMenuItem.name')
                     ->label('Bovenliggende item')
