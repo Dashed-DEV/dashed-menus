@@ -41,17 +41,17 @@ class MenuItemsRelationManager extends RelationManager
                 TextColumn::make('name')
                     ->label('Naam')
                     ->sortable()
-                    ->getStateUsing(fn($record) => $record->name(false))
+                    ->getStateUsing(fn ($record) => $record->name(false))
                     ->searchable(),
                 TextColumn::make('parentMenuItem.name')
                     ->label('Bovenliggende item')
                     ->sortable(),
                 TextColumn::make('url')
                     ->label('URL')
-                    ->getStateUsing(fn($record) => str_replace(url('/'), '', $record->getUrl())),
+                    ->getStateUsing(fn ($record) => str_replace(url('/'), '', $record->getUrl())),
                 TextColumn::make('site_ids')
                     ->label('Sites')
-                    ->getStateUsing(fn($record) => implode(' | ', $record->site_ids))
+                    ->getStateUsing(fn ($record) => implode(' | ', $record->site_ids))
                     ->searchable(),
             ])
             ->filters([
@@ -63,7 +63,7 @@ class MenuItemsRelationManager extends RelationManager
                     ->label('Bewerken')
                     ->icon('heroicon-o-pencil-square')
                     ->button()
-                    ->url(fn(MenuItem $record) => route('filament.dashed.resources.menu-items.edit', [$record])),
+                    ->url(fn (MenuItem $record) => route('filament.dashed.resources.menu-items.edit', [$record])),
                 DeleteAction::make(),
             ])
             ->bulkActions([
@@ -75,7 +75,7 @@ class MenuItemsRelationManager extends RelationManager
                 Action::make('create')
                     ->label('Menu item aanmaken')
                     ->button()
-                    ->url(fn() => route('filament.dashed.resources.menu-items.create') . '?menuId=' . $this->ownerRecord->id),
+                    ->url(fn () => route('filament.dashed.resources.menu-items.create') . '?menuId=' . $this->ownerRecord->id),
                 LocaleSwitcher::make(),
                 Action::make('translate')
                     ->icon('heroicon-m-language')
